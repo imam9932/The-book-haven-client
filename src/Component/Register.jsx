@@ -1,26 +1,53 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router';
+import { AuthContext } from '../Provider/AuthContext';
+import { toast } from 'react-toastify';
 
 const Register = () => {
+  const {createUserFunc}=useContext(AuthContext);
+  const navigate=useNavigate();
+
+  const handleCreateUser=(e)=>{
+    e.preventDefault();
+    const name=e.target.name.value; 
+    const image=e.target.image.value; 
+    const email=e.target.email.value; 
+    const password=e.target.password.value; 
+
+    console.log(name,email,image,password);
+
+    // createUser
+createUserFunc(email,password)
+.then(res=>
+  console.log(res.user),
+  toast.success('Account created successfully')
+  navigate()
+)
+.catch(error=>{
+  console.log(error.message)
+  toast.error(error.message);
+})
+
+  }
   return (
    <div className='bg-[#F22E07] border-base-300 rounded-box w-xs border p-4 mx-auto my-50 text-white font-bold'>
     <h1 className='text-center text-2xl'>Register</h1>
-    <form>
+    <form onSubmit={handleCreateUser}>
        <fieldset className="fieldset ">
         {/* name */}
   <label className="label">Your Name</label>
-  <input type="text" name='name' className="input" placeholder="write your name" />
+  <input type="text" name='name' className="input text-black" placeholder='write your name' />
 
   {/* photo */}
   <label className="label">Photo URL</label>
-  <input type="text" name='image' className="input" placeholder="URL" />
+  <input type="text" name='image' className="input text-black" placeholder="URL" />
    
 {/* email */}
   <label className="label">Your Email</label>
-  <input type="email" name='email' className="input" placeholder="enter your email" />
+  <input type="email" name='email' className="input text-black" placeholder="enter your email" />
 {/* password */}
   <label className="label">Password</label>
-  <input type="password" name='password' className="input" placeholder="Password" />
+  <input type="password" name='password' className="input text-black" placeholder="Password" />
 
   <button className="btn btn-neutral mt-4 bg-red-500 border-white">Register</button>
 </fieldset>

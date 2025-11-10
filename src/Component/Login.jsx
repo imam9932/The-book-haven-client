@@ -11,10 +11,10 @@ const Login = () => {
        
     {/* email */}
       <label className="label">Your Email</label>
-      <input type="email" name='email' className="input" placeholder="enter your email" />
+      <input type="email" name='email' className="input text-black" placeholder="enter your email" />
     {/* password */}
       <label className="label">Password</label>
-      <input type="password" name='password' className="input" placeholder="Password" />
+      <input type="password" name='password' className="input text-black" placeholder="Password" />
     
       <button className="btn btn-neutral mt-4 bg-red-500 border-white">Log-in</button>
     </fieldset>

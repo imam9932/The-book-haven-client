@@ -12,6 +12,8 @@ import AddBook from './Component/AddBook.jsx';
 import MyBooks from './Component/MyBooks.jsx';
 import Register from './Component/Register.jsx';
 import Login from './Component/Login.jsx';
+import AuthProvider from './Provider/AuthProvider.jsx';
+import { ToastContainer } from 'react-toastify';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +50,9 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-     <RouterProvider router={router} />,
+     <AuthProvider>
+      <RouterProvider router={router} />,
+      <ToastContainer></ToastContainer>
+     </AuthProvider>
   </StrictMode>,
 )
