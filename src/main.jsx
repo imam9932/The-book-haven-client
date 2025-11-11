@@ -14,6 +14,8 @@ import Register from './Component/Register.jsx';
 import Login from './Component/Login.jsx';
 import AuthProvider from './Provider/AuthProvider.jsx';
 import { ToastContainer } from 'react-toastify';
+import BookDetails from './Component/BookDetails.jsx';
+import AddABook from './Component/AddABook.jsx';
 
 const router = createBrowserRouter([
   {
@@ -26,15 +28,14 @@ const router = createBrowserRouter([
       },
       {
         path:'/allBooks',
-        element:<AllBooks></AllBooks>
+        element:<AllBooks></AllBooks>,
+        loader:()=>fetch('http://localhost:3000/allBooks')
       },
-      {
-        path:'/addBook',
-        element:<AddBook></AddBook>
-      },
+       
       {
         path:'/myBooks',
-        element:<MyBooks></MyBooks>
+        element:<MyBooks></MyBooks>,
+         
       },
       {
         path:'/register',
@@ -43,7 +44,17 @@ const router = createBrowserRouter([
       {
         path:'/login',
         element:<Login></Login>
-      }
+      },
+      {
+        path:'/bookDetails/:id',
+        element:<BookDetails></BookDetails>,
+        loader:({params})=>fetch(`http://localhost:3000/bookDetails/${params.id}`)
+      },
+      {
+        path:'/addABook',
+        element:<AddABook></AddABook>
+      },
+       
     ],
   },
 ]);

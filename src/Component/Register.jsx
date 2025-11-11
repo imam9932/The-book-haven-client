@@ -4,9 +4,9 @@ import { AuthContext } from '../Provider/AuthContext';
 import { toast } from 'react-toastify';
 
 const Register = () => {
-  const {createUserFunc}=useContext(AuthContext);
+  const {createUserFunc,user,setUser,setLoading,signInWithGoogleFunc}=useContext(AuthContext);
+ 
   const navigate=useNavigate();
-
   const handleCreateUser=(e)=>{
     e.preventDefault();
     const name=e.target.name.value; 
@@ -16,19 +16,47 @@ const Register = () => {
 
     console.log(name,email,image,password);
 
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+
+    if(!passwordRegex.test(password)){
+      toast.error("Password should be one uppercase, one lowercase and at least 6 characters")
+      return;
+    }
+
     // createUser
 createUserFunc(email,password)
 .then(res=>
   console.log(res.user),
-  toast.success('Account created successfully')
-  navigate()
+  toast.success('Account created successfully'),
+  navigate('/'),
+  setUser(user),
+  setLoading(false)
 )
 .catch(error=>{
   console.log(error.message)
   toast.error(error.message);
-})
+});
 
-  }
+
+
+
+  };
+// google signin
+  const handleGoogleSignIn=()=>{
+  signInWithGoogleFunc()
+  .then(res=>
+  console.log(res.user),
+  toast.success('user logging successful'),
+  navigate('/'),
+  setUser(user),
+  setLoading(false)
+)
+.catch(error=>{
+  console.log(error.message)
+  toast.error(error.message);
+});
+
+}
   return (
    <div className='bg-[#F22E07] border-base-300 rounded-box w-xs border p-4 mx-auto my-50 text-white font-bold'>
     <h1 className='text-center text-2xl'>Register</h1>
@@ -55,7 +83,7 @@ createUserFunc(email,password)
     <p className='text-center'>------------or------------</p>
 {/* google login */}
 
-<div>
+<div type='button' onClick={handleGoogleSignIn}>
 <button className="btn bg-red-500 w-full mt-2 text-white border-[#e5e5e5]">
   <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g><path d="m0 0H512V512H0" fill="#fff"></path><path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path><path fill="#4285f4" d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path><path fill="#fbbc02" d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path><path fill="#ea4335" d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"></path></g></svg>
   Login with Google
