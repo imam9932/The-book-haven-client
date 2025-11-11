@@ -34,7 +34,7 @@ const AddBook = () => {
 
   }
   return (
-    <div className='bg-[#F22E07] border-base-300 rounded-box w-xs border p-4 mx-auto my-50 text-white font-bold'>
+    <div className='bg-[#F22E07] border-base-300 rounded-box w-xs border p-4 mx-auto my-10 text-white font-bold'>
            <h1 className='text-center text-2xl mb-4'>Add a Book</h1>
            <form onSubmit={handleAddBook}  >
               <fieldset className="fieldset ">

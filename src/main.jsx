@@ -15,16 +15,20 @@ import Login from './Component/Login.jsx';
 import AuthProvider from './Provider/AuthProvider.jsx';
 import { ToastContainer } from 'react-toastify';
 import BookDetails from './Component/BookDetails.jsx';
-import AddABook from './Component/AddABook.jsx';
+ import LatestBooks from './Component/LatestBooks.jsx';
+import PrivateRoute from './Component/PrivateRoute/PrivateRoute.jsx';
+import Errorpage from './Component/Errorpage.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element:  <MainLayout></MainLayout>,
+    errorElement:<Errorpage></Errorpage>,
     children:[
       {
         path:'/',
-        element:<Home></Home>
+        element:<Home></Home>,
+        loader:()=>fetch('http://localhost:3000/latest-books')
       },
       {
         path:'/allBooks',
@@ -34,7 +38,9 @@ const router = createBrowserRouter([
        
       {
         path:'/myBooks',
-        element:<MyBooks></MyBooks>,
+        element:<PrivateRoute>
+          <MyBooks></MyBooks>
+        </PrivateRoute>,
          
       },
       {
@@ -47,13 +53,23 @@ const router = createBrowserRouter([
       },
       {
         path:'/bookDetails/:id',
-        element:<BookDetails></BookDetails>,
+        element:<PrivateRoute>
+          <BookDetails></BookDetails>
+        </PrivateRoute>,
         loader:({params})=>fetch(`http://localhost:3000/bookDetails/${params.id}`)
       },
       {
-        path:'/addABook',
-        element:<AddABook></AddABook>
+        path:'/addBook',
+        element:<PrivateRoute>
+          <AddBook></AddBook>
+        </PrivateRoute>
       },
+      {
+        path:'/latest-books',
+        element:<LatestBooks></LatestBooks>,
+        loader:()=>fetch('http://localhost:3000/latest-books')
+      },
+       
        
     ],
   },
