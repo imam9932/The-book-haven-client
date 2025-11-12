@@ -5,7 +5,7 @@ const Intro = () => {
     <div className='mt-5 bg-orange-200 rounded-md'>
       <h1 className='text-xl text-center bg-[#f22e07] font-bold text-white py-2 rounded-xl'>About The Book Haven</h1>
       <div>
-        <p className='mt-5 p-3'>
+        <p className='mt-5 p-3 text-[#f22e07]'>
           The Book Haven is a comprehensive online platform designed for readers, collectors, and book enthusiasts who want a smarter and easier way to explore, buy, and manage books.
 In today’s fast-paced world, readers often struggle to find reliable online spaces dedicated entirely to books — not just e-commerce. The Book Haven fills that gap by creating a digital sanctuary for book lovers where passion meets convenience.
 

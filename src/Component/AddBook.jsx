@@ -11,7 +11,7 @@ const AddBook = () => {
      rating:e.target.rating.value,
      summary:e.target.summary.value,
      image:e.target.image.value,
-     email:e.target.email.value,
+     userEmail:e.target.email.value,
      name:e.target.name.value,
     }
      
