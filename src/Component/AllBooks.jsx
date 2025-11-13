@@ -1,15 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLoaderData } from 'react-router';
 
 const AllBooks = () => {
   const data=useLoaderData();
-  console.log(data);
+   const [sortOrder,setSortOrder]=useState('desc');
+   const [books,setBooks]=useState([]);
+
+  useEffect(()=>{
+    fetch(`http://localhost:3000/allBooks?sort=${sortOrder}`)
+    .then(res=>res.json())
+    .then(data=>{
+      console.log(data)
+      setBooks(data)
+    })
+    .catch(error=>{
+      console.log(error.message)
+    })
+  },[sortOrder])
   return (
     <div>
-    <h1 className='text-3xl text-center text-[#f22E07]'>All Books</h1>
+      <div className="dropdown mt-2 bg-[#f22e07] rounded-lg">
+  <div tabIndex={0} role="button" className="btn m-1 bg-[#f22e07]">Sort</div>
+  <ul tabIndex="-1" className="dropdown-content menu rounded-box z-1 w-52 p-2 shadow-sm bg-[#f22e07] text-white font-bold">
+    <button className='hover:bg-black rounded-md' onClick={()=>setSortOrder('asc')}>Low to High (Rating)</button>
+    <button className='mt-2 hover:bg-black rounded-md' onClick={()=>setSortOrder('desc')}>High to Low (Rating)</button>
+  </ul>
+</div>
+     
     <div className='grid lg:grid-cols-3 grid-cols-1 gap-3'>
       {
-        data.map(book=><div key={book._id} className='bg-[#F22E07] rounded-xl p-3 text-center text-white font-bold  '>
+        books.map(book=><div key={book._id} className='bg-[#F22E07] rounded-xl p-3 text-center text-white font-bold mt-5  '>
           <div className=' rounded-2xl p-3'>
             <h4 className=' '><span className='text-gray-300'>Book Name :</span> {book.title}</h4>
           <p className=' '><span className='text-gray-300'>Author :</span> {book.author}</p>

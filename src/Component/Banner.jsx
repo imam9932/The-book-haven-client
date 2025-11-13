@@ -1,5 +1,6 @@
  import React, { useState } from "react";
 import { motion,AnimatePresence } from "framer-motion";
+import { Link } from "react-router";
 
 // Plant data
 const books = [
@@ -61,7 +62,8 @@ const Banner = () => {
   const prevSlide = () => setIndex((index - 1 + books.length) % books.length);
 
   return (
-    <div className="relative w-9/12 mt-8 mx-auto overflow-hidden rounded-2xl shadow-lg ">
+    <div>
+      <div className="relative w-9/12 mt-8 mx-auto overflow-hidden rounded-2xl shadow-lg ">
       <AnimatePresence mode="wait">
         <motion.div
           key={index}
@@ -93,6 +95,11 @@ const Banner = () => {
       >
         ❯
       </button>
+    </div>
+    <div className="flex gap-10 justify-center items-center my-5">
+      <Link to={'/allBooks'} className="btn bg-red-500 text-white" >All Books</Link>
+      <Link to={'/addBook'} className="btn bg-red-500 text-white">Create Book</Link>
+    </div>
     </div>
   );
 };

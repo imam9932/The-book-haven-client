@@ -5,8 +5,7 @@ import toast from 'react-hot-toast';
  
 const Navbar = () => {
   const {user,setUser,loading,signOutFunc}=useContext(AuthContext);
-  console.log(user);
-
+ 
     const [theme, setTheme] = useState(localStorage.getItem('theme') || "light")
 
   useEffect(() => {
@@ -75,7 +74,7 @@ const Navbar = () => {
             
            type="checkbox"
            defaultChecked={localStorage.getItem('theme') === "dark"}
-           className="toggle"/>
+           className="toggle mr-5"/>
 
 {/* conditional */}
 {loading ? (
